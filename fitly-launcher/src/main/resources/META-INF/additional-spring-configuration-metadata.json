@@ -1,0 +1,39 @@
+{
+	"properties": [
+		{
+			"name": "fitly.datasource.port",
+			"type": "java.lang.String",
+			"description": "A description for 'fitly.datasource.port'"
+		},
+		{
+			"name": "fitly.datasource.host",
+			"type": "java.lang.String",
+			"description": "A description for 'fitly.datasource.host'"
+		},
+		{
+			"name": "fitly.datasource.password",
+			"type": "java.lang.String",
+			"description": "A description for 'fitly.datasource.password'"
+		},
+		{
+			"name": "fitly.datasource.username",
+			"type": "java.lang.String",
+			"description": "A description for 'fitly.datasource.username'"
+		},
+		{
+			"name": "fitly.datasource.database-name",
+			"type": "java.lang.String",
+			"description": "A description for 'fitly.datasource.database-name'"
+		},
+		{
+			"name": "fitly.datasource.schema",
+			"type": "java.lang.String",
+			"description": "A description for 'fitly.datasource.schema'"
+		},
+		{
+			"name": "fitly.datasource.type",
+			"type": "java.lang.String",
+			"description": "A description for 'fitly.datasource.type'"
+		}
+	]
+}

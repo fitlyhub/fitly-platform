@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: fitly-platform-launcher
+  threads:
+    virtual:
+      enabled: true
+
+fitly:
+  datasource:
+    host: localhost
+    port: 5432
+    username: fitly
+    password: fitly
+    database-name: fitly-mono
+    schema: fitly
+    type: postgres
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: shutdown,heapdump
+  endpoint:
+    health:
+      show-details: always
+  info:
+    env:
+      enabled: true

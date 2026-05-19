@@ -1,0 +1,22 @@
+Fitly Platform
+Copyright 2026 fitly.zero and the Fitly Project Contributors
+
+This product includes software developed by the Fitly Project (https://github.com/fitlyhub/fitly-be-open.git).
+
+-------------------------------------------------------------------
+ATTRIBUTION REQUIREMENTS
+-------------------------------------------------------------------
+Under the terms of the Apache License 2.0, any derivative works or 
+commercial deployments of this software must comply with the following:
+
+1. VISIBLE BRANDING: You must retain the "Powered by Fitly" branding 
+   on the User Interface (UI), clearly visible to end-users in the 
+   application footer or the 'About' section.
+2. SOURCE NOTICES: You must maintain all original copyright and 
+   authorship notices within the source code.
+3. TRADEMARK: You may not remove or alter the Fitly logo from the
+   login screen without prior written consent from the project lead.
+
+For registration of use or partnership inquiries, please contact:
+Lead Architect: fitly.zero
+Email: open.fitlyhub@gmail.com
