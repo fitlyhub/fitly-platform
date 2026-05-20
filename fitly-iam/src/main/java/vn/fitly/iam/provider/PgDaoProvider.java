@@ -14,15 +14,17 @@ import java.util.function.Supplier;
 import com.google.auto.service.AutoService;
 
 import vn.fitly.foundation.dao.DaoProvider;
+import vn.fitly.iam.dao.RoleDao;
 import vn.fitly.iam.dao.UserDao;
-import vn.fitly.iam.dao.impl.pg.PgGlobalUserDaoImpl;
+import vn.fitly.iam.dao.impl.pg.PgRoleDaoImpl;
+import vn.fitly.iam.dao.impl.pg.PgUserDaoImpl;
 import vn.fitly.infrastructure.datasource.FitlyDbType;
 
 /**
  * 
  */
 @AutoService(DaoProvider.class)
-public class PgDaoProvider implements DaoProvider{
+public class PgDaoProvider implements DaoProvider {
 
     @Override
     public FitlyDbType getDbType() {
@@ -31,7 +33,9 @@ public class PgDaoProvider implements DaoProvider{
 
     @Override
     public void register(Map<String, Supplier<?>> registry) {
-        registry.put(buildKey(UserDao.class), PgGlobalUserDaoImpl::new);
+        registry.put(buildKey(UserDao.class), PgUserDaoImpl::new);
+        registry.put(buildKey(RoleDao.class), PgRoleDaoImpl::new);
+
     }
 
 }

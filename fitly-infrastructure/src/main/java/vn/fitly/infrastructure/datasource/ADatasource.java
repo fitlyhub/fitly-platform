@@ -14,7 +14,7 @@ import vn.fitly.infrastructure.dto.DatasourceInfo;
 /**
  * 
  */
-public abstract class AFitlyDatasource<K> {
+public abstract class ADatasource<K> {
 
     private static final long MAX_TIME_UNUSED_DATASOURCE = 12 * 60 * 60 * 1000L; // 12 hours
 
@@ -26,7 +26,7 @@ public abstract class AFitlyDatasource<K> {
 
     private volatile long lastUsedTime = System.currentTimeMillis();
 
-    public AFitlyDatasource(DatasourceInfo datasourceInfo) {
+    public ADatasource(DatasourceInfo datasourceInfo) {
         initDatasource(datasourceInfo);
     }
 

@@ -8,6 +8,8 @@
  */
 package vn.fitly.common.exception;
 
+import vn.fitly.common.language.DefaultSystemMessage;
+
 /**
  * 
  */
@@ -21,6 +23,11 @@ public class FitlyRuntimeException extends RuntimeException {
 
     public FitlyRuntimeException(ErrorStatus status, String errorCode) {
         this(status, errorCode, null);
+    }
+
+    public FitlyRuntimeException(ErrorStatus status, DefaultSystemMessage message, Exception cause) {
+
+        this(status, message.name(), cause);
     }
 
     public FitlyRuntimeException(ErrorStatus status, String errorCode, Exception cause) {

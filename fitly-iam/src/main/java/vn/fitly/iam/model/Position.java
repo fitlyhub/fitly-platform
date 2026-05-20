@@ -23,7 +23,7 @@ public class Position {
     
     private String name;
     
-    private int orgId;
+    private String orgId;
     
     private List<DataScope> dataScopeList = new ArrayList<>();
 
@@ -72,14 +72,14 @@ public class Position {
     /**
      * @return the orgId
      */
-    public int getOrgId() {
+    public String getOrgId() {
         return orgId;
     }
 
     /**
      * @param orgId the orgId to set
      */
-    public void setOrgId(int orgId) {
+    public void setOrgId(String orgId) {
         this.orgId = orgId;
     }
 

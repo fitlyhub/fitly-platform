@@ -11,10 +11,12 @@ package vn.fitly.infrastructure.datasource.tenant;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import vn.fitly.common.exception.ErrorStatus;
 import vn.fitly.common.exception.FitlyRuntimeException;
 import vn.fitly.common.language.DefaultSystemMessage;
+import vn.fitly.common.utils.StringUtils;
 import vn.fitly.infrastructure.config.ApplicationConfig;
 import vn.fitly.infrastructure.datasource.PostgresDatasource;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
@@ -27,7 +29,17 @@ public class FitlyDatasource {
     private static final PostgresDatasource datasource = new PostgresDatasource(ApplicationConfig.getDatasource());
 
     public static Connection getConnection() {
-        return datasource.getConnection();
+
+        Connection conn = datasource.getConnection();
+        if (!StringUtils.isBlank(ApplicationConfig.getDatasource().getSchema())) {
+            try {
+                conn.setSchema(ApplicationConfig.getDatasource().getSchema());
+            } catch (SQLException e) {
+                throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, DefaultSystemMessage.INTERNAL_ERROR, e);
+            }
+        }
+
+        return conn;
     }
 
     public static DatasourceInfo loadDatasource(String serviceName) throws FitlyRuntimeException {

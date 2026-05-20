@@ -72,7 +72,7 @@ public class Login extends AFitlyProcessor<LoginRequest, LoginResponse> {
         LoginResponse response = new LoginResponse();
         response.setAccessToken(token);
         response.setRefreshToken(refreshToken);
-        response.setUserId(user.getUserId());
+        response.setUserId(user.getUserId().toString());
 
         RoleDao roleDao = DaoFactory.getDao(RoleDao.class);
 

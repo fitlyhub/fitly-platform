@@ -23,6 +23,11 @@
 			<artifactId>infrastructure</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>vn.fitly</groupId>
+			<artifactId>iam</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

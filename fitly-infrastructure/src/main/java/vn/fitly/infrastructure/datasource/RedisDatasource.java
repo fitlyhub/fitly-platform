@@ -19,7 +19,7 @@ import vn.fitly.infrastructure.dto.DatasourceInfo;
 /**
  * 
  */
-public class RedisDatasource extends AFitlyDatasource<RedisClient> {
+public class RedisDatasource extends ADatasource<RedisClient> {
 
     private RedisClient datasource;
 

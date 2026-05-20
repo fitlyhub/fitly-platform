@@ -22,7 +22,7 @@ import vn.fitly.infrastructure.dto.DatasourceInfo;
 /**
  * 
  */
-public class PostgresDatasource extends AFitlyDatasource<Connection> {
+public class PostgresDatasource extends ADatasource<Connection> {
 
     private HikariDataSource datasource;
 

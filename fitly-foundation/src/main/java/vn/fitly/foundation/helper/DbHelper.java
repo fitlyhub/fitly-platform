@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import vn.fitly.foundation.context.CtxRequest;
 
@@ -34,6 +35,11 @@ public class DbHelper {
 
             if (param == null) {
                 ps.setNull(index, Types.VARCHAR);
+                continue;
+            }
+            
+            if (param instanceof UUID) {
+                ps.setObject(index, param);
                 continue;
             }
 

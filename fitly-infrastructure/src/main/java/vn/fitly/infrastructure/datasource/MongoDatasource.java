@@ -24,7 +24,7 @@ import vn.fitly.infrastructure.dto.DatasourceInfo;
 /**
  * 
  */
-public class MongoDatasource extends AFitlyDatasource<MongoClient> {
+public class MongoDatasource extends ADatasource<MongoClient> {
 
     private MongoClient client;
 

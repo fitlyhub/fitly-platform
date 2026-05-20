@@ -33,6 +33,11 @@ public class RequestExecutor {
                 ctx.commit();
                 return BaseResponse.success(result);
 
+            } catch (FitlyRuntimeException e) {
+
+                ctx.rollback();
+                throw e;
+
             } catch (Exception e) {
 
                 ctx.rollback();
@@ -43,6 +48,10 @@ public class RequestExecutor {
             } finally {
                 ctx.close();
             }
+
+        } catch (FitlyRuntimeException e) {
+
+            throw e;
 
         } catch (Exception e) {
 

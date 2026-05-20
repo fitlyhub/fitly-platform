@@ -36,7 +36,7 @@ public class DaoFactory {
     @SuppressWarnings("unchecked")
     public static <T> T getDao(Class<T> daoType) {
 
-        String key = StringUtils.mergeKey(ApplicationConfig.getDatabaseType().name().toLowerCase(), daoType.getName());
+        String key = StringUtils.merge(ApplicationConfig.getDatabaseType().name().toLowerCase(), ":", daoType.getName());
 
         Supplier<?> supplier = REGISTRY.get(key);
 

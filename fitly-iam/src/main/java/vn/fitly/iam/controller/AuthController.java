@@ -24,7 +24,7 @@ import vn.fitly.iam.response.LoginResponse;
  * 
  */
 @RestController
-@RequestMapping("/users/v1")
+@RequestMapping("/auth/v1")
 public class AuthController {
 
     @Autowired

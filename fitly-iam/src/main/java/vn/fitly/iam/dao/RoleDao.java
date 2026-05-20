@@ -9,6 +9,7 @@
 package vn.fitly.iam.dao;
 
 import java.util.List;
+import java.util.UUID;
 
 import vn.fitly.iam.model.Position;
 
@@ -17,7 +18,7 @@ import vn.fitly.iam.model.Position;
  */
 public interface RoleDao {
     
-    List<Position> getUserPositions(String userId);
+    List<Position> getUserPositions(UUID userId) throws Exception;
     
     
 

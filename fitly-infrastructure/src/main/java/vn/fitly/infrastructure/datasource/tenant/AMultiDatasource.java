@@ -14,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import vn.fitly.common.exception.FitlyRuntimeException;
-import vn.fitly.infrastructure.datasource.AFitlyDatasource;
+import vn.fitly.infrastructure.datasource.ADatasource;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
 
 /**
@@ -24,9 +24,9 @@ public abstract class AMultiDatasource<K> {
 
     private final Map<String, DatasourceInfo> routerMap = new ConcurrentHashMap<>();
 
-    private final Map<String, AFitlyDatasource<K>> datasourceMap = new ConcurrentHashMap<>();
+    private final Map<String, ADatasource<K>> datasourceMap = new ConcurrentHashMap<>();
 
-    protected abstract AFitlyDatasource<K> createDatasource(DatasourceInfo datasourceInfo);
+    protected abstract ADatasource<K> createDatasource(DatasourceInfo datasourceInfo);
 
     protected abstract void setSchema(K connection, String schema) throws FitlyRuntimeException;
 
@@ -40,7 +40,7 @@ public abstract class AMultiDatasource<K> {
             return null;
         }
 
-        AFitlyDatasource<K> datasource = datasourceMap.computeIfAbsent(
+        ADatasource<K> datasource = datasourceMap.computeIfAbsent(
                 datasourceInfo.getDatasourceKey(),
                 _ -> {
                     return createDatasource(datasourceInfo);
@@ -58,7 +58,7 @@ public abstract class AMultiDatasource<K> {
 
     public void shutdown() {
 
-        for (AFitlyDatasource<K> datasource : datasourceMap.values()) {
+        for (ADatasource<K> datasource : datasourceMap.values()) {
             datasource.closeDatasource();
         }
 
@@ -73,7 +73,7 @@ public abstract class AMultiDatasource<K> {
                 .collect(Collectors.toSet());
 
         for (String key : expiredKeys) {
-            AFitlyDatasource<K> ds = datasourceMap.remove(key);
+            ADatasource<K> ds = datasourceMap.remove(key);
             if (ds != null) {
                 ds.closeDatasource();
             }

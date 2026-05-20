@@ -10,6 +10,7 @@ package vn.fitly.iam.dao.impl.pg;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.UUID;
 
 import vn.fitly.foundation.helper.DbHelper;
 import vn.fitly.iam.dao.UserDao;
@@ -18,7 +19,7 @@ import vn.fitly.iam.model.User;
 /**
  * 
  */
-public class PgGlobalUserDaoImpl implements UserDao {
+public class PgUserDaoImpl implements UserDao {
 
     @Override
     public User getUserByUsername(String username) throws Exception {
@@ -31,7 +32,7 @@ public class PgGlobalUserDaoImpl implements UserDao {
             if (rs.next()) {
 
                 User user = new User();
-                user.setUserId(rs.getString("sys_user_id"));
+                user.setUserId(UUID.fromString(rs.getString("sys_user_id")));
                 user.setPassword(rs.getString("password"));
                 user.setActive(rs.getBoolean("is_active"));
 

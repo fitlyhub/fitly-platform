@@ -8,6 +8,8 @@
  */
 package vn.fitly.iam.model;
 
+import java.util.UUID;
+
 /**
  * 
  */
@@ -17,7 +19,7 @@ public class User {
 
     private String password;
 
-    private String userId;
+    private UUID userId;
 
     private String avatarUrl;
 
@@ -60,14 +62,14 @@ public class User {
     /**
      * @return the userId
      */
-    public String getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
     /**
      * @param userId the userId to set
      */
-    public void setUserId(String userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
