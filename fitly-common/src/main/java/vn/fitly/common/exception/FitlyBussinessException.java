@@ -22,5 +22,9 @@ public class FitlyBussinessException extends FitlyRuntimeException {
     public FitlyBussinessException(ErrorStatus status, String errorCode) {
         super(status, errorCode);
     }
+    
+    public FitlyBussinessException(ErrorStatus status, ErrorCode errorCode) {
+        super(status, errorCode);
+    }
 
 }

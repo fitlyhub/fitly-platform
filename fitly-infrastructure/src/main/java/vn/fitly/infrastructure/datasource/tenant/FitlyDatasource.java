@@ -15,8 +15,6 @@ import java.sql.SQLException;
 
 import vn.fitly.common.exception.ErrorStatus;
 import vn.fitly.common.exception.FitlyRuntimeException;
-import vn.fitly.common.language.DefaultSystemMessage;
-import vn.fitly.common.utils.StringUtils;
 import vn.fitly.infrastructure.config.ApplicationConfig;
 import vn.fitly.infrastructure.datasource.PostgresDatasource;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
@@ -31,18 +29,19 @@ public class FitlyDatasource {
     public static Connection getConnection() {
 
         Connection conn = datasource.getConnection();
-        if (!StringUtils.isBlank(ApplicationConfig.getDatasource().getSchema())) {
+        if (ApplicationConfig.getDatasource().getSchema() != null) {
             try {
                 conn.setSchema(ApplicationConfig.getDatasource().getSchema());
             } catch (SQLException e) {
-                throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, DefaultSystemMessage.INTERNAL_ERROR, e);
+                throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorStatus.INTERNAL_ERROR.name());
             }
+
         }
 
         return conn;
     }
 
-    public static DatasourceInfo loadDatasource(String serviceName) throws FitlyRuntimeException {
+    public static DatasourceInfo loadDatasource(String serviceName) throws Exception {
 
         String sql = "select * from sys_tenant_datasource where service_name = ?";
 
@@ -57,8 +56,6 @@ public class FitlyDatasource {
                 }
             }
             return null;
-        } catch (Exception e) {
-            throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, DefaultSystemMessage.INTERNAL_ERROR.name(), e);
         }
     }
 

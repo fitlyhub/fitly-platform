@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import vn.fitly.common.exception.FitlyRuntimeException;
 import vn.fitly.infrastructure.datasource.ADatasource;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
 
@@ -28,12 +27,17 @@ public abstract class AMultiDatasource<K> {
 
     protected abstract ADatasource<K> createDatasource(DatasourceInfo datasourceInfo);
 
-    protected abstract void setSchema(K connection, String schema) throws FitlyRuntimeException;
+    protected abstract void setSchema(K connection, String schema);
 
     public K getConnectionWithServiceName(String serviceName) {
 
         DatasourceInfo datasourceInfo = routerMap.computeIfAbsent(serviceName, _ -> {
-            return FitlyDatasource.loadDatasource(serviceName);
+            try {
+                return FitlyDatasource.loadDatasource(serviceName);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
         });
 
         if (datasourceInfo == null) {

@@ -2,7 +2,7 @@
  * Project: Fitly Platform
  * Author:  fitly.zero
  * Date:    May 10, 2026
- * Time:    4:41:44 PM
+ * Time:    9:25:27 PM
  * * Copyright (c) 2026 fitly.zero. All rights reserved.
  * Licensed under the Apache License 2.0.
  */
@@ -10,84 +10,51 @@ package vn.fitly.foundation.context;
 
 import java.sql.Connection;
 
-import vn.fitly.infrastructure.datasource.tenant.DBProvider;
+import vn.fitly.foundation.processor.IProcessor;
 
 /**
  * 
  */
-public class Ctx implements AutoCloseable {
+public class Ctx {
 
-    private final boolean isReadOnly;
+    private final static ScopedValue<FitlyContext> CTX = ScopedValue.newInstance();
 
-    private UserPrincipal user;
+    public static SessionContext get() {
 
-    private Connection connection;
-
-    /**
-     * @param tenantId
-     * @param user
-     * @param connection
-     */
-    public Ctx(boolean isReadOnly) {
-        this.isReadOnly = isReadOnly;
-    }
-
-    /**
-     * @return the user
-     */
-    public UserPrincipal getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(UserPrincipal user) {
-        this.user = user;
-    }
-
-    /**
-     * @return the connection
-     * @throws Exception
-     */
-    public Connection getConnection() throws Exception {
-
-        if (connection == null) {
-
-            connection = DBProvider.getConnection();
-            connection.setReadOnly(isReadOnly);
-            connection.setAutoCommit(false);
+        if (CTX.isBound()) {
+            return CTX.get().session();
         }
 
-        return connection;
-    }
-
-    @Override
-    public void close() throws Exception {
-
-        if (connection != null) {
-            connection.close();
-            connection = null;
-        }
-
-        user = null;
+        return null;
 
     }
+    
+    public static HttpContext http() {
 
-    public void commit() throws Exception {
-        if (connection == null) {
-            return;
+        if (CTX.isBound()) {
+            return CTX.get().http();
         }
 
-        connection.commit();
+        return null;
+
     }
 
-    public void rollback() throws Exception {
-        if (connection == null) {
-            return;
+
+    protected static ScopedValue<FitlyContext> getInstance() {
+        return CTX;
+    }
+
+    public static Connection getConnection() throws Exception {
+        SessionContext ctx = get();
+        if (ctx == null) {
+            return null;
         }
 
-        connection.rollback();
+        return ctx.getConnection();
+    }
+
+    public static <RQ, RP> RP call(FitlyContext context, IProcessor<RQ, RP> processor) {
+        return ScopedValue.where(CTX, context).call(processor::process);
     }
 
 }

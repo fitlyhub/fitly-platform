@@ -15,7 +15,7 @@ import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import vn.fitly.foundation.context.CtxRequest;
+import vn.fitly.foundation.context.Ctx;
 
 /**
  * 
@@ -94,7 +94,7 @@ public class DbHelper {
     }
 
     public static PreparedStatement preparedStatement(String sql, Object... params) throws Exception {
-        PreparedStatement ps = CtxRequest.getConnection().prepareStatement(sql);
+        PreparedStatement ps = Ctx.getConnection().prepareStatement(sql);
         setParameters(ps, params);
         return ps;
     }

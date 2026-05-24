@@ -14,22 +14,50 @@ import java.math.BigDecimal;
  * 
  */
 public class SysConfig {
-    
+
+    private static String getConfigAsString(String configName) {
+        return SysConfigLoader.getConfigValue(configName);
+    }
+
     private static String getConfigAsString(String configName, String defaultVal) {
-        return new SysConfigLoader<>(configName, String.class).getWithDefault(defaultVal);
+        String val = getConfigAsString(configName);
+        if (val == null) {
+            return defaultVal;
+        }
+
+        return val;
     }
-    
+
     private static BigDecimal getConfigAsBigDecimal(String configName, BigDecimal defaultVal) {
-        return new SysConfigLoader<>(configName, BigDecimal.class).getWithDefault(defaultVal);
+        String val = getConfigAsString(configName);
+        if (val == null) {
+            return defaultVal;
+        }
+
+        return new BigDecimal(val);
     }
-    
+
     private static Integer getConfigAsInteger(String configName, Integer defaultVal) {
-        return new SysConfigLoader<>(configName, Integer.class).getWithDefault(defaultVal);
+        String val = getConfigAsString(configName);
+        if (val == null) {
+            return defaultVal;
+        }
+
+        return Integer.parseInt(val);
     }
-    
+
     private static Boolean getConfigAsBoolean(String configName, boolean defaultVal) {
-        return new SysConfigLoader<>(configName, Boolean.class).getWithDefault(defaultVal);
+        String val = getConfigAsString(configName);
+        if (val == null) {
+            return defaultVal;
+        }
+
+        if ("Y".equalsIgnoreCase(val)) {
+            return true;
+        }
+
+        return Boolean.valueOf(val);
+
     }
-    
 
 }

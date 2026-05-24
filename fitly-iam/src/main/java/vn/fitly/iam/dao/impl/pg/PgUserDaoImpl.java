@@ -30,17 +30,42 @@ public class PgUserDaoImpl implements UserDao {
                 ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
-
-                User user = new User();
-                user.setUserId(UUID.fromString(rs.getString("sys_user_id")));
-                user.setPassword(rs.getString("password"));
-                user.setActive(rs.getBoolean("is_active"));
-
-                return user;
+                return mapUser(rs);
             }
         }
 
         return null;
+    }
+
+    @Override
+    public User getUserById(UUID userId) throws Exception {
+
+        String sql = "select * from sys_user where sys_user_id = ?";
+
+        try (PreparedStatement ps = DbHelper.preparedStatement(sql, userId);
+                ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                return mapUser(rs);
+            }
+        }
+
+        return null;
+    }
+
+    private User mapUser(ResultSet rs) throws Exception {
+
+        User user = new User();
+        user.setUserId(UUID.fromString(rs.getString("sys_user_id")));
+        user.setUsername(rs.getString("username"));
+        user.setPassword(rs.getString("password"));
+        user.setAvatarUrl(rs.getString("avatar_url"));
+        user.setFirstName(rs.getString("first_name"));
+        user.setLastName(rs.getString("last_name"));
+        user.setFullName(rs.getString("full_name"));
+        user.setActive(rs.getBoolean("is_active"));
+
+        return user;
     }
 
 }

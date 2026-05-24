@@ -12,13 +12,12 @@ import redis.clients.jedis.RedisClient;
 import redis.clients.jedis.params.SetParams;
 import tools.jackson.databind.ObjectMapper;
 import vn.fitly.common.json.JsonMapperBuilder;
-import vn.fitly.foundation.utils.FoundationConstant;
 import vn.fitly.infrastructure.datasource.tenant.DBProvider;
 
 /**
  * 
  */
-public class RedisCache implements ICache {
+public class RedisCache implements ICacheStore {
 
     public static final RedisCache REDIS_CACHE = new RedisCache();
 
@@ -28,17 +27,22 @@ public class RedisCache implements ICache {
 
     private static final String SERVICE_NAME = "cache";
 
-    private static final ObjectMapper REDIS_MAPPER = JsonMapperBuilder.build();
+    private static final ObjectMapper REDIS_MAPPER = JsonMapperBuilder.get();
 
     private RedisCache() {
     }
 
     @Override
-    public void put(String key, Object value) {
+    public void put(String key, Object value, long ttl) {
+
+        if (value == null) {
+            return;
+        }
+
         RedisClient redisClient = DBProvider.getRedisClient(SERVICE_NAME);
-        redisClient.set(key,
-                REDIS_MAPPER.writeValueAsString(value),
-                SetParams.setParams().ex(FoundationConstant.CACHE_EXPIRED_MINUTES * 60));
+        redisClient.set(key, REDIS_MAPPER.writeValueAsString(value),
+                // ttl is second
+                SetParams.setParams().ex(ttl));
     }
 
     @Override

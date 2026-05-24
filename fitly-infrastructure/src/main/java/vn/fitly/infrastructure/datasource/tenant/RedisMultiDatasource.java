@@ -9,7 +9,6 @@
 package vn.fitly.infrastructure.datasource.tenant;
 
 import redis.clients.jedis.RedisClient;
-import vn.fitly.common.exception.FitlyRuntimeException;
 import vn.fitly.infrastructure.datasource.RedisDatasource;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
 
@@ -33,7 +32,7 @@ public class RedisMultiDatasource extends AMultiDatasource<RedisClient> {
     }
 
     @Override
-    protected void setSchema(RedisClient connection, String schema) throws FitlyRuntimeException {
+    protected void setSchema(RedisClient connection, String schema) {
     }
 
 }

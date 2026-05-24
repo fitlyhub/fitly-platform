@@ -14,9 +14,9 @@ import java.sql.SQLException;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import vn.fitly.common.exception.ErrorCode;
 import vn.fitly.common.exception.ErrorStatus;
 import vn.fitly.common.exception.FitlyRuntimeException;
-import vn.fitly.common.language.DefaultSystemMessage;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
 
 /**
@@ -35,7 +35,7 @@ public class PostgresDatasource extends ADatasource<Connection> {
         try {
             return datasource.getConnection();
         } catch (SQLException e) {
-            throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, DefaultSystemMessage.INTERNAL_ERROR.name(), e);
+            throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorCode.ERROR_WHILE_PROCESSING, e);
         }
     }
 

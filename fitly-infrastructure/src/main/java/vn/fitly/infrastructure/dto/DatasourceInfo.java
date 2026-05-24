@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 
 import vn.fitly.common.utils.StringUtils;
 import vn.fitly.infrastructure.datasource.FitlyDbType;
-import vn.fitly.infrastructure.spring.initializer.FitlyDatasourceConfig;
+import vn.fitly.infrastructure.spring.FitlyDatasourceConfig;
 
 public class DatasourceInfo {
 

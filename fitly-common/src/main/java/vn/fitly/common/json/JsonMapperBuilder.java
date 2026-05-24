@@ -23,7 +23,10 @@ import tools.jackson.datatype.jsr310.JavaTimeModule;
  */
 public class JsonMapperBuilder {
 
-    public static ObjectMapper build() {
+    // thread-safe
+    private static final ObjectMapper DEFAULT_MAPPER = build();
+
+    private static ObjectMapper build() {
 
         return JsonMapper.builder()
                 .addModule(new JavaTimeModule()
@@ -34,6 +37,10 @@ public class JsonMapperBuilder {
                 .enable(JsonWriteFeature.WRITE_NUMBERS_AS_STRINGS)
                 .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES)
                 .build();
+    }
+
+    public static ObjectMapper get() {
+        return DEFAULT_MAPPER;
     }
 
 }

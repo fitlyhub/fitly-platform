@@ -1,0 +1,27 @@
+/**
+ * Project: Fitly Platform
+ * Author:  fitly.zero
+ * Date:    May 19, 2026
+ * Time:    3:18:01 PM
+ * * Copyright (c) 2026 fitly.zero. All rights reserved.
+ * Licensed under the Apache License 2.0.
+ */
+package vn.fitly.iam.dao;
+
+import java.util.List;
+import java.util.UUID;
+
+import vn.fitly.iam.model.Position;
+
+/**
+ * 
+ */
+public interface PositionDao {
+    
+    List<Position> getUserPositions(UUID userId) throws Exception;
+    
+    boolean isValidUserRole(UUID userId, Position position) throws Exception;
+    
+    
+
+}

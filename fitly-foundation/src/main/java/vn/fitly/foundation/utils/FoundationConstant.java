@@ -13,6 +13,6 @@ package vn.fitly.foundation.utils;
  */
 public class FoundationConstant {
     
-    public static final long CACHE_EXPIRED_MINUTES = 60;
+    public static final long CACHE_EXPIRED_SECONDS = 60 * 60 * 8;
 
 }

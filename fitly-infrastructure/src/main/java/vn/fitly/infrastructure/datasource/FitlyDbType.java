@@ -8,8 +8,6 @@
  */
 package vn.fitly.infrastructure.datasource;
 
-import vn.fitly.common.utils.StringUtils;
-
 /**
  * 
  */
@@ -21,8 +19,6 @@ public enum FitlyDbType {
     ;
 
     public static FitlyDbType getType(String str) {
-
-        str = StringUtils.trimToNull(str);
         if (str == null) {
             return null;
         }

@@ -1,11 +1,21 @@
-INSERT INTO sys_tenant_profile (sys_tenant_profile_id, logo_url, timezone, default_language, support_languages)
+INSERT INTO sys_tenant_profile (sys_tenant_profile_id, code, name, logo_url, timezone, default_language, support_languages)
 VALUES (
     uuidv7(),
+    'default',
+    'Default Tenant',
     NULL,
     'Asia/Ho_Chi_Minh',
     'vi_VN',
     '["vi_VN", "en_US"]'::jsonb
-);
+)
+on conflict do nothing;
+
+update sys_tenant_profile
+set code = coalesce(code, 'default'),
+    name = coalesce(name, 'Default Tenant'),
+    updated_at = now()
+where code is null
+   or name is null;
 
 insert into sys_user(sys_user_id, username, password, first_name, last_name, full_name, email, phone, avatar_url,
                      is_active, is_locked, last_login_at, created_at, updated_at, created_by, updated_by)

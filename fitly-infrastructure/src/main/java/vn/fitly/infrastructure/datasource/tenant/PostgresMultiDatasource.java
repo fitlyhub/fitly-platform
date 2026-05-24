@@ -11,9 +11,9 @@ package vn.fitly.infrastructure.datasource.tenant;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import vn.fitly.common.exception.ErrorCode;
 import vn.fitly.common.exception.ErrorStatus;
 import vn.fitly.common.exception.FitlyRuntimeException;
-import vn.fitly.common.language.DefaultSystemMessage;
 import vn.fitly.infrastructure.datasource.PostgresDatasource;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
 
@@ -37,11 +37,11 @@ public class PostgresMultiDatasource extends AMultiDatasource<Connection> {
     }
 
     @Override
-    protected void setSchema(Connection connection, String schema) throws FitlyRuntimeException {
+    protected void setSchema(Connection connection, String schema) {
         try {
             connection.setSchema(schema);
         } catch (SQLException e) {
-            throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, DefaultSystemMessage.INTERNAL_ERROR.name(), e);
+            throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorCode.ERROR_WHILE_PROCESSING, e);
         }
     }
 

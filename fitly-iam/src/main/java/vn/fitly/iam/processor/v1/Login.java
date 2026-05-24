@@ -8,19 +8,22 @@
  */
 package vn.fitly.iam.processor.v1;
 
-import java.util.UUID;
+import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
 import vn.fitly.common.exception.ErrorStatus;
 import vn.fitly.common.exception.FitlyBussinessException;
-import vn.fitly.common.exception.FitlyRuntimeException;
 import vn.fitly.common.language.DefaultSystemMessage;
 import vn.fitly.common.utils.StringUtils;
+import vn.fitly.foundation.context.Ctx;
 import vn.fitly.foundation.dao.DaoFactory;
-import vn.fitly.foundation.processor.AFitlyProcessor;
-import vn.fitly.iam.dao.RoleDao;
+import vn.fitly.foundation.processor.BaseProcessor;
+import vn.fitly.foundation.security.SessionHelper;
+import vn.fitly.iam.cache.LoginSessionCache;
+import vn.fitly.iam.dao.PositionDao;
 import vn.fitly.iam.dao.UserDao;
+import vn.fitly.iam.model.Position;
 import vn.fitly.iam.model.User;
 import vn.fitly.iam.request.LoginRequest;
 import vn.fitly.iam.response.LoginResponse;
@@ -28,7 +31,7 @@ import vn.fitly.iam.response.LoginResponse;
 /**
  * 
  */
-public class Login extends AFitlyProcessor<LoginRequest, LoginResponse> {
+public class Login extends BaseProcessor<LoginRequest, LoginResponse> {
 
     public Login(LoginRequest request) {
         super(request);
@@ -48,7 +51,7 @@ public class Login extends AFitlyProcessor<LoginRequest, LoginResponse> {
     }
 
     @Override
-    protected LoginResponse processInternal() throws Exception {
+    protected LoginResponse doProcess() throws Exception {
 
         UserDao userDao = DaoFactory.getDao(UserDao.class);
         User user = userDao.getUserByUsername(request.getUsername());
@@ -66,30 +69,21 @@ public class Login extends AFitlyProcessor<LoginRequest, LoginResponse> {
             throw new FitlyBussinessException(ErrorStatus.UNAUTHORIZED, "USER_UNAUTHORIZED");
         }
 
-        String token = generateJwtToken(user);
-        String refreshToken = generateRefreshToken(user);
+        PositionDao roleDao = DaoFactory.getDao(PositionDao.class);
+        List<Position> positionList = roleDao.getUserPositions(user.getUserId());
+        if (positionList.isEmpty()) {
+            throw new FitlyBussinessException(ErrorStatus.RULE_EXCEPTION, "POSITION_NOT_EXIST");
+        }
 
-        LoginResponse response = new LoginResponse();
-        response.setAccessToken(token);
-        response.setRefreshToken(refreshToken);
-        response.setUserId(user.getUserId().toString());
+        String loginSession = SessionHelper.generateSession();
 
-        RoleDao roleDao = DaoFactory.getDao(RoleDao.class);
+        LoginResponse response = new LoginResponse(user.getUserId(), positionList, request.getTraceId());
 
-        response.setPositionList(roleDao.getUserPositions(user.getUserId()));
+        new LoginSessionCache(loginSession).put(response);
+
+        Ctx.http().setCookie("FITLY_LOGIN_SESSION", loginSession, 30);
 
         return response;
     }
 
-    private String generateJwtToken(User user) {
-        // Note: For production, integrate with a real JWT library like jjwt or
-        // nimbus-jose-jwt
-        return "mock-jwt-token-for-user-" + user.getUsername() + "-" + UUID.randomUUID().toString();
-    }
-
-    private String generateRefreshToken(User user) {
-        // Note: For production, this should be a secure, long-lived token,
-        // often stored in the database to allow revocation.
-        return "mock-refresh-token-for-user-" + user.getUsername() + "-" + UUID.randomUUID().toString();
-    }
 }

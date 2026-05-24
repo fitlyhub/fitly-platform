@@ -8,7 +8,6 @@
  */
 package vn.fitly.infrastructure.datasource;
 
-import vn.fitly.common.exception.FitlyRuntimeException;
 import vn.fitly.infrastructure.dto.DatasourceInfo;
 
 /**
@@ -18,7 +17,7 @@ public abstract class ADatasource<K> {
 
     private static final long MAX_TIME_UNUSED_DATASOURCE = 12 * 60 * 60 * 1000L; // 12 hours
 
-    protected abstract K getConnectionFromDatasource() throws FitlyRuntimeException;
+    protected abstract K getConnectionFromDatasource();
 
     protected abstract void initDatasource(DatasourceInfo datasourceInfo);
 
@@ -30,7 +29,7 @@ public abstract class ADatasource<K> {
         initDatasource(datasourceInfo);
     }
 
-    public K getConnection() throws FitlyRuntimeException {
+    public K getConnection() {
         lastUsedTime = System.currentTimeMillis();
         return getConnectionFromDatasource();
     }

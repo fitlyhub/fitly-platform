@@ -13,10 +13,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * 
  */
-public abstract class ARequest {
+public class ARequest {
 
     @JsonProperty("language_code")
     private String languageCode;
+
+    @JsonProperty("token")
+    private String token;
+
+    @JsonProperty("trace_id")
+    private String traceId;
 
     /**
      * @return the languageCode
@@ -30,6 +36,28 @@ public abstract class ARequest {
      */
     public void setLanguageCode(String languageCode) {
         this.languageCode = languageCode;
+    }
+
+    /**
+     * @return the token
+     */
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * @param token the token to set
+     */
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getTraceId() {
+        return traceId;
+    }
+
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
     }
 
 }

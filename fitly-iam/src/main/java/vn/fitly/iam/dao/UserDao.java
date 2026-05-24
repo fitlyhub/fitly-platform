@@ -8,6 +8,8 @@
  */
 package vn.fitly.iam.dao;
 
+import java.util.UUID;
+
 import vn.fitly.iam.model.User;
 
 /**
@@ -16,5 +18,7 @@ import vn.fitly.iam.model.User;
 public interface UserDao {
 
     public User getUserByUsername(String username) throws Exception;
+
+    public User getUserById(UUID userId) throws Exception;
 
 }
