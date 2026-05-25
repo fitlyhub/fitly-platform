@@ -33,7 +33,8 @@ public class FitlyDatasource {
             try {
                 conn.setSchema(ApplicationConfig.getDatasource().getSchema());
             } catch (SQLException e) {
-                throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorStatus.INTERNAL_ERROR.name());
+                throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorStatus.INTERNAL_ERROR.name(),
+                        "Can't set schema");
             }
 
         }

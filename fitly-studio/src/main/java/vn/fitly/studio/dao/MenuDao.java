@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
-import vn.fitly.foundation.dto.UserPrincipal;
+import vn.fitly.foundation.context.UserPrincipal;
 import vn.fitly.studio.dto.HeaderDto;
 import vn.fitly.studio.dto.MenuDto;
 

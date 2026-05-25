@@ -11,8 +11,7 @@ package vn.fitly.foundation.context;
 import java.sql.Connection;
 import java.util.UUID;
 
-import vn.fitly.foundation.dto.Tenant;
-import vn.fitly.foundation.dto.UserPrincipal;
+import vn.fitly.foundation.systemdata.entity.Tenant;
 import vn.fitly.infrastructure.datasource.tenant.DBProvider;
 
 /**
@@ -117,7 +116,7 @@ public class SessionContext implements AutoCloseable {
     }
 
     public UUID getTenantId() {
-        return tenant == null ? null : tenant.getId();
+        return tenant == null ? null : tenant.getTenantId();
     }
 
     public UUID getUserId() {

@@ -6,7 +6,7 @@
  * * Copyright (c) 2026 fitlyzero. All rights reserved.
  * Licensed under the Apache License 2.0.
  */
-package vn.fitly.foundation.dto;
+package vn.fitly.foundation.context;
 
 import java.util.UUID;
 

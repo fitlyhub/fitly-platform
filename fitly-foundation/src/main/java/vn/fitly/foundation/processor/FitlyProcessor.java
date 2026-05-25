@@ -10,7 +10,7 @@ package vn.fitly.foundation.processor;
 
 import vn.fitly.common.exception.FitlyBussinessException;
 import vn.fitly.foundation.context.Ctx;
-import vn.fitly.foundation.dto.UserPrincipal;
+import vn.fitly.foundation.context.UserPrincipal;
 
 /**
  * 

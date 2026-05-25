@@ -15,7 +15,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import vn.fitly.foundation.processor.IProcessor;
 import vn.fitly.foundation.response.BaseResponse;
-import vn.fitly.generated.context.FitlyCookie;
 
 /**
  * Project: Fitly Platform Author: fitly.zero Date: 10/5/26 Time: 16:06 *

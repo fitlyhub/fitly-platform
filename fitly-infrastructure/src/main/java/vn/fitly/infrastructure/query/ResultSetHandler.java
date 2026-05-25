@@ -6,7 +6,7 @@
  * * Copyright (c) 2026 fitly.zero. All rights reserved.
  * Licensed under the Apache License 2.0.
  */
-package vn.fitly.infrastructure.support.pg;
+package vn.fitly.infrastructure.query;
 
 import java.sql.ResultSet;
 

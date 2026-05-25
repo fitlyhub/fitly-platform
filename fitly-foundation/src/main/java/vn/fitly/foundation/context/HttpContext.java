@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import vn.fitly.generated.context.FitlyCookie;
-
 public class HttpContext {
 
     private final Map<String, String> requestHeaderMap = new HashMap<>();

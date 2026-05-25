@@ -19,12 +19,12 @@ public class FitlyBussinessException extends FitlyRuntimeException {
      * @param status
      * @param errorCode
      */
-    public FitlyBussinessException(ErrorStatus status, String errorCode) {
-        super(status, errorCode);
+    public FitlyBussinessException(ErrorStatus status, String errorCode, String message) {
+        super(status, errorCode, message);
     }
     
-    public FitlyBussinessException(ErrorStatus status, ErrorCode errorCode) {
-        super(status, errorCode);
+    public FitlyBussinessException(ErrorStatus status, ErrorCode errorCode, String message) {
+        super(status, errorCode, message);
     }
 
 }

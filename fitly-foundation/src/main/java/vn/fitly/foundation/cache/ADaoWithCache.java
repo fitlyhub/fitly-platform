@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import vn.fitly.common.exception.ErrorCode;
 import vn.fitly.common.exception.ErrorStatus;
 import vn.fitly.common.exception.FitlyRuntimeException;
 import vn.fitly.common.utils.StringUtils;
@@ -108,7 +109,7 @@ public abstract class ADaoWithCache<K, T> {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
-                throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorStatus.INTERNAL_ERROR.name());
+                throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorCode.ERROR_WHILE_PROCESSING, e);
 
             }
 
@@ -145,7 +146,7 @@ public abstract class ADaoWithCache<K, T> {
             return loadedMap;
 
         } catch (Exception e) {
-            throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorStatus.INTERNAL_ERROR.name());
+            throw new FitlyRuntimeException(ErrorStatus.INTERNAL_ERROR, ErrorCode.ERROR_WHILE_PROCESSING, e);
         }
 
         finally {

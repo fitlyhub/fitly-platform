@@ -8,13 +8,13 @@
  */
 package vn.fitly.foundation.systemdata.dao.impl;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.UUID;
 
-import vn.fitly.foundation.helper.DbHelper;
+import vn.fitly.foundation.context.Ctx;
 import vn.fitly.foundation.systemdata.dao.UserDao;
 import vn.fitly.foundation.systemdata.entity.User;
+import vn.fitly.infrastructure.query.QueryExecutor;
+import vn.fitly.infrastructure.query.QueryInput;
 
 /**
  * 
@@ -24,48 +24,27 @@ public class PgUserDaoImpl implements UserDao {
     @Override
     public User getUserByUsername(String username) throws Exception {
 
-        String sql = "select * from sys_user where username = ?";
+        QueryInput query = QueryInput.getQueryInput();
+        query.appendSql("select *\n");
+        query.appendSql("from sys_user\n");
+        query.appendSql("where ");
+        query.addWhereClause("username", username);
 
-        try (PreparedStatement ps = DbHelper.preparedStatement(sql, username);
-                ResultSet rs = ps.executeQuery()) {
-
-            if (rs.next()) {
-                return mapUser(rs);
-            }
-        }
-
-        return null;
-    }
-
-    @Override
-    public User getUserById(UUID userId) throws Exception {
-
-        String sql = "select * from sys_user where sys_user_id = ?";
-
-        try (PreparedStatement ps = DbHelper.preparedStatement(sql, userId);
-                ResultSet rs = ps.executeQuery()) {
+        return QueryExecutor.query(Ctx.getConnection(), query, rs -> {
 
             if (rs.next()) {
-                return mapUser(rs);
+                User user = new User();
+                user.setUserId(rs.getObject("sys_user_id", UUID.class));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setActive(rs.getBoolean("is_active"));
+
+                return user;
             }
-        }
 
-        return null;
-    }
+            return null;
+        });
 
-    private User mapUser(ResultSet rs) throws Exception {
-
-        User user = new User();
-        user.setUserId(UUID.fromString(rs.getString("sys_user_id")));
-        user.setUsername(rs.getString("username"));
-        user.setPassword(rs.getString("password"));
-        user.setAvatarUrl(rs.getString("avatar_url"));
-        user.setFirstName(rs.getString("first_name"));
-        user.setLastName(rs.getString("last_name"));
-        user.setFullName(rs.getString("full_name"));
-        user.setActive(rs.getBoolean("is_active"));
-
-        return user;
     }
 
 }

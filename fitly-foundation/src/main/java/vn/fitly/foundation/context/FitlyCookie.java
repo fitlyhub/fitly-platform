@@ -1,4 +1,4 @@
-package vn.fitly.generated.context;
+package vn.fitly.foundation.context;
 
 public class FitlyCookie {
 

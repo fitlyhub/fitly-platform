@@ -6,12 +6,12 @@
  * * Copyright (c) 2026 fitly.zero. All rights reserved.
  * Licensed under the Apache License 2.0.
  */
-package vn.fitly.infrastructure.support.pg;
+package vn.fitly.infrastructure.query;
 
 /**
  * 
  */
-public enum PgObjectType {
+public enum DbObjectType {
 
     UUID,
     TEXT,

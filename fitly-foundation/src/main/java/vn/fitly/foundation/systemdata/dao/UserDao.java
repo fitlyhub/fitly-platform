@@ -8,8 +8,6 @@
  */
 package vn.fitly.foundation.systemdata.dao;
 
-import java.util.UUID;
-
 import vn.fitly.foundation.systemdata.entity.User;
 
 /**
@@ -18,7 +16,5 @@ import vn.fitly.foundation.systemdata.entity.User;
 public interface UserDao {
 
     public User getUserByUsername(String username) throws Exception;
-
-    public User getUserById(UUID userId) throws Exception;
 
 }

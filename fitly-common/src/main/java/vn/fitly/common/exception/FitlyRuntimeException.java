@@ -1,15 +1,11 @@
 /**
- * Project: Fitly Platform
- * Author:  fitly.zero
- * Date:    May 8, 2026
- * Time:    11:26:01 AM
- * * Copyright (c) 2026 fitly.zero. All rights reserved.
- * Licensed under the Apache License 2.0.
+ * Project: Fitly Platform Author:  fitly.zero Date:    May 8, 2026 Time:    11:26:01 AM * Copyright (c) 2026
+ * fitly.zero. All rights reserved. Licensed under the Apache License 2.0.
  */
 package vn.fitly.common.exception;
 
 /**
- * 
+ *
  */
 public class FitlyRuntimeException extends RuntimeException {
 
@@ -19,12 +15,14 @@ public class FitlyRuntimeException extends RuntimeException {
 
     private final String errorCode;
 
-    public FitlyRuntimeException(ErrorStatus status, ErrorCode errorCode) {
-        this(status, errorCode, null);
+    public FitlyRuntimeException(ErrorStatus status, ErrorCode errorCode, String message) {
+        this(status, errorCode.name(), message);
     }
 
-    public FitlyRuntimeException(ErrorStatus status, String errorCode) {
-        this(status, errorCode, null);
+    public FitlyRuntimeException(ErrorStatus status, String errorCode, String message) {
+        super(message, null, true, false);
+        this.status = status.getStatus();
+        this.errorCode = errorCode;
     }
 
     public FitlyRuntimeException(ErrorStatus status, ErrorCode errorCode, Exception cause) {
@@ -38,13 +36,6 @@ public class FitlyRuntimeException extends RuntimeException {
 
         this.status = status.getStatus();
         this.errorCode = errorCode;
-    }
-
-    /**
-     * @return the serialversionuid
-     */
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 
     /**

@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 
+import vn.fitly.common.exception.ErrorCode;
 import vn.fitly.common.exception.ErrorStatus;
 import vn.fitly.common.exception.FitlyBussinessException;
 import vn.fitly.common.language.DefaultSystemMessage;
@@ -45,7 +46,7 @@ public class Login extends BaseProcessor<LoginRequest, LoginResponse> {
         }
 
         if (StringUtils.isBlank(request.getUsername()) || StringUtils.isBlank(request.getPassword())) {
-            throw new FitlyBussinessException(ErrorStatus.REQUEST_INVALID, DefaultSystemMessage.REQUEST_INVALID.name());
+            throw new FitlyBussinessException(ErrorStatus.REQUEST_INVALID, ErrorCode.ERROR_WHILE_PROCESSING);
         }
 
     }
